@@ -6,10 +6,6 @@ Week 1 - Issue Classifier (goi OpenAI)
 3. Kiem tra JSON bang Pydantic.
 4. Ghi CSV de script chấm cham diem.
 
-Chay (tu thu muc goc, da activate .venv, da dien .env):
-
-  python practice/week01/classify.py --prompt v3
-  python scripts/evaluate_issue_classifier.py practice/week01/output/predictions_v3.csv
 """
 
 from __future__ import annotations
@@ -50,7 +46,6 @@ def require_env() -> tuple[str, str, str]:
     if bad_key or bad_model:
         raise SystemExit(
             "Can dien that OPENAI_API_KEY va OPENAI_MODEL trong file .env "
-            "(copy tu .env.example)."
         )
     return api_key, model, base_url
 
@@ -90,7 +85,6 @@ def classify_one(
     client: OpenAI, model: str, system_prompt: str, text: str
 ) -> IssuePrediction:
     """Goi OpenAI cho 1 phiếu, validate bang Pydantic."""
-    # Mot so model (vd gpt-5.x) khong cho temperature=0; dung mac dinh cua API.
     response = client.chat.completions.create(
         model=model,
         messages=[

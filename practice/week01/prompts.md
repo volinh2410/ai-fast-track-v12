@@ -67,7 +67,7 @@ V2 cải thiện gì so với V1:
 
 ---
 
-## V3 – luật chặt + few-shot (bản dùng để nộp)
+## V3 – luật chặt + few-shot
 
 ```text
 You classify one issue text. Use ONLY the text. Do not invent facts.
