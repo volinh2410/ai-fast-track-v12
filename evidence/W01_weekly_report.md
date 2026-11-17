@@ -52,6 +52,6 @@ Security cases: không áp dụng ở tuần 1 (chưa có tool, chưa có quyề
 
 **Demo link:** Chưa có.
 
-**PR link:** Chưa mở. Code nằm trên branch local `w1`. Remote đã trỏ `https://github.com/volinh2410/ai-fast-track-v12.git`. Push bị firewall FortiGate trả 403.
+**PR link:** Chưa mở. Code nằm trên branch `week01`. Remote đã trỏ `https://github.com/volinh2410/ai-fast-track-v12.git`.
 
 **Next action:** Siết luật priority trong prompt để giảm ca priority còn sai mà không làm mất các ca P1.
