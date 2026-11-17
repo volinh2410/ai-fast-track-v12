@@ -90,9 +90,9 @@ def classify_one(
     client: OpenAI, model: str, system_prompt: str, text: str
 ) -> IssuePrediction:
     """Goi OpenAI cho 1 phiếu, validate bang Pydantic."""
-    # Mot so model (vd gpt-5.x) khong cho temperature=0; dung mac dinh cua API.
     response = client.chat.completions.create(
         model=model,
+        temperature=0,
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": f"Issue text:\n{text}"},
