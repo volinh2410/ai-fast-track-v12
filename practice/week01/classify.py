@@ -1,6 +1,5 @@
 """
 Week 1 - Issue Classifier (goi OpenAI)
-
 1. Doc 20 cau text tu gold (khong dung nhan dung).
 2. Gui prompt V1/V2/V3 + text toi OpenAI.
 3. Kiem tra JSON bang Pydantic.
