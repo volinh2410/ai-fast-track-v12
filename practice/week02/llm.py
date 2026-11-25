@@ -67,15 +67,18 @@ def analyze_meeting_text(meeting_text: str) -> MeetingAnalysis:
     client, model = get_client()
 
     try:
-        reply = client.chat.completions.create(
-            model=model,
-            temperature=0,
-            response_format={"type": "json_object"},
-            messages=[
+        # gpt-6-luna (va mot so model moi) chi chap nhan temperature mac dinh
+        kwargs = {
+            "model": model,
+            "response_format": {"type": "json_object"},
+            "messages": [
                 {"role": "system", "content": read_prompt()},
                 {"role": "user", "content": f"Meeting notes:\n{meeting_text}"},
             ],
-        )
+        }
+        if not model.startswith("gpt-6"):
+            kwargs["temperature"] = 0
+        reply = client.chat.completions.create(**kwargs)
         raw = reply.choices[0].message.content or ""
         return MeetingAnalysis.model_validate(parse_json(raw))
 
@@ -84,10 +87,9 @@ def analyze_meeting_text(meeting_text: str) -> MeetingAnalysis:
     except RateLimitError as e:
         raise LLMError(429, "Upstream model rate limited") from e
     except APIStatusError as e:
-        raise LLMError(502, f"Upstream model error: {e.status_code}") from e
+        detail = getattr(e, "message", None) or str(e)
+        raise LLMError(502, f"Upstream model error: {e.status_code} — {detail}") from e
     except (ValidationError, ValueError, json.JSONDecodeError) as e:
         raise LLMError(502, f"Malformed model response: {e}") from e
 
-
-# Test co the gan lai bien nay bang ham fake (khong can Depends).
 analyze_fn = analyze_meeting_text

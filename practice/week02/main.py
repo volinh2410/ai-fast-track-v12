@@ -20,7 +20,6 @@ app = FastAPI(title="Week 2 Meeting Notes API", version="0.1.0")
 def analyze_meeting(body: MeetingRequest) -> MeetingAnalysis:
     """Doc meeting_text -> summary, decisions, actions."""
     try:
-        # Dung llm.analyze_fn de test co the gan ham fake
         return llm.analyze_fn(body.meeting_text)
     except LLMError as err:
         raise HTTPException(status_code=err.status_code, detail=err.message) from err
